@@ -22,13 +22,13 @@ class NoticiaList(APIView):
 
 
 class NoticiaDetail(APIView):
-    def get(self, id):
-        noticia = self.get_object(id)
+    def get(self, request, id):
+        noticia = models.Noticia.objects.get(id=id)
         noticia_serializer = serializers.NoticiaSerializer(noticia)
         return Response(noticia_serializer.data)
 
     def put(self, request, id):
-        noticia = self.get_object(id)
+        noticia = models.Noticia.objects.get(id=id)
         noticia_serializer = serializers.NoticiaSerializer(
             noticia, data=request.data)
         if noticia_serializer.is_valid():
@@ -36,8 +36,8 @@ class NoticiaDetail(APIView):
             return Response(noticia_serializer.data)
         return Response(noticia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, id):
-        noticia = self.get_object(id)
+    def delete(self, request, id):
+        noticia = models.Noticia.objects.get(id=id)
         noticia.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -59,13 +59,13 @@ class ComentarioList(APIView):
 
 
 class ComentarioDetail(APIView):
-    def get(self, id):
-        comentario = self.get_object(id)
+    def get(self, request, id):
+        comentario = models.Comentario.objects.get(id=id)
         comentario_serializer = serializers.ComentarioSerializer(comentario)
         return Response(comentario_serializer.data)
 
     def put(self, request, id):
-        comentario = self.get_object(id)
+        comentario = models.Comentario.objects.get(id=id)
         comentario_serializer = serializers.ComentarioSerializer(
             comentario, data=request.data)
         if comentario_serializer.is_valid():
@@ -73,7 +73,7 @@ class ComentarioDetail(APIView):
             return Response(comentario_serializer.data)
         return Response(comentario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, id):
-        comentario = self.get_object(id)
+    def delete(self, request, id):
+        comentario = models.Comentario.objects.get(id=id)
         comentario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
