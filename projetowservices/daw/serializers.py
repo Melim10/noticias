@@ -11,4 +11,4 @@ class NoticiaSerializer(serializers.ModelSerializer):
 class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
-        fields = ('id', 'noticia', 'descricao', 'data')
+        fields = ('id', 'descricao', 'data')
