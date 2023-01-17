@@ -26,7 +26,7 @@ urlpatterns = [
     path('noticias/', views.NoticiaList.as_view()),
     path('noticias/<int:id>/', views.NoticiaDetail.as_view()),
     path('noticias/<int:id>/comentarios/', views.ComentarioList.as_view()),
-    # path('noticias/<int:id>/comentarios/<int:idComentario>/', views.ComentarioDetail.as_view()),
+    path('noticias/<int:id>/comentarios/<int:id_comentario>/', views.ComentarioDetail.as_view()),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
