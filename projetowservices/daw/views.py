@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from daw import models, serializers
 
+
 # Create your views here.
 
 
@@ -50,6 +51,7 @@ class ComentarioList(APIView):
         if comentario_serializer.is_valid():
             comentario_serializer.save(noticia=noticia)
             return Response(comentario_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(comentario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, id):
         noticia = models.Noticia.objects.get(pk=id)
@@ -59,13 +61,13 @@ class ComentarioList(APIView):
         return Response(comentario_serializer.data)
 
 class ComentarioDetail(APIView):
-    def get(self, request, id):
-        comentario = models.Comentario.objects.get(id=id)
+    def get(self, request, id, id_comentario):
+        comentario = models.Comentario.objects.get(id=id_comentario)
         comentario_serializer = serializers.ComentarioSerializer(comentario)
         return Response(comentario_serializer.data)
 
-    def put(self, request, id):
-        comentario = models.Comentario.objects.get(id=id)
+    def put(self, request, id, id_comentario):
+        comentario = models.Comentario.objects.get(id=id_comentario)
         comentario_serializer = serializers.ComentarioSerializer(
             comentario, data=request.data)
         if comentario_serializer.is_valid():
@@ -73,7 +75,7 @@ class ComentarioDetail(APIView):
             return Response(comentario_serializer.data)
         return Response(comentario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
-        comentario = models.Comentario.objects.get(id=id)
+    def delete(self, request, id, id_comentario):
+        comentario = models.Comentario.objects.get(id=id_comentario)
         comentario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
